@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<project name="RestExtension" default="merge">
+	<target name="merge">
+		<filelist id="filelist" dir="">
+			<file name="GlobalConstants.js"/>
+			<file name="NetworkUtil.js"/>
+			<file name="ApiRecorder.js"/>
+			<file name="ApiCallTable.js"/>
+			<file name="ApiEditorDialog.js"/>
+			<file name="ApiFilter.js"/>
+			<file name="ApiDoc.js"/>
+			<file name="ApiNode.js"/>
+			<file name="ApiTree.js"/>
+			<file name="ApiSettings.js"/>
+			<file name="ExtInitializer.js"/>
+		</filelist>
+
+		<concat destfile="rest_api_inject.js" encoding="UTF-8" outputencoding="UTF-8" fixlastline="true">
+			<filelist refid="filelist" />
+		</concat>
+		
+	</target>
+	
+	 
+</project>
