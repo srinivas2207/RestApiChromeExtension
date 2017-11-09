@@ -500,7 +500,10 @@ var REST_EXT = {};
 			xhr.open = function(method, url, async) {
 			
 				var baseUrl = url.split("?")[0];
-				if (baseUrl.endsWith(".js") || baseUrl.endsWith(".css") || baseUrl.endsWith(".html") ) {
+				if (baseUrl.endsWith(".js") || baseUrl.endsWith(".css")
+						|| baseUrl.endsWith(".html")
+						|| baseUrl.endsWith(".scss")
+						|| baseUrl.endsWith(".xml") || baseUrl.endsWith(".xsl")) {
 					return open.apply(this, arguments);
 				}
 					
@@ -561,6 +564,8 @@ var REST_EXT = {};
 	function ApiRecorder() {
 		var objRef = this;
 		
+		var PARAMETER_FILTER  = ["_"];
+		
 		var apiCount = 0;
 		var apiCounter = 1;
 		
@@ -608,14 +613,15 @@ var REST_EXT = {};
 			var callId = apiCounter++;
 			callId += "";
 			
-			// removing system time param from url
+			// removing unnecessary params from url
 			var baseUrl = url.split("?")[0];
 			if ( url.split("?").length > 1) {
 				var paramStr = "";
 				var params = url.split("?")[1];
 				var paramList = params.split("&");
 				for(var i=0; i<paramList.length; i++) {
-					if (!paramList[i].startsWith("_")) {
+					var param = paramList[i].split("=")[0];
+					if (!_isParamFiltered(param)) {
 						if (paramStr.length == 0) {
 							paramStr = "?" + paramList[i];
 						} else {
@@ -634,6 +640,15 @@ var REST_EXT = {};
 			apiCallTable.addRequest(apiCalls[callId]);
 			
 			return callId;
+		}
+		
+		function _isParamFiltered(param) {
+			for(var i=0; i<PARAMETER_FILTER.length; i++) {
+				if (param == PARAMETER_FILTER[i]) {
+					return true;
+				}
+			}
+			return false;
 		}
 		
 		function _handlePollRequest(callId, url, method, request) {

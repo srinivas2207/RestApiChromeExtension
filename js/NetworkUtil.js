@@ -23,7 +23,10 @@ var REST_EXT = {};
 			xhr.open = function(method, url, async) {
 			
 				var baseUrl = url.split("?")[0];
-				if (baseUrl.endsWith(".js") || baseUrl.endsWith(".css") || baseUrl.endsWith(".html") ) {
+				if (baseUrl.endsWith(".js") || baseUrl.endsWith(".css")
+						|| baseUrl.endsWith(".html")
+						|| baseUrl.endsWith(".scss")
+						|| baseUrl.endsWith(".xml") || baseUrl.endsWith(".xsl")) {
 					return open.apply(this, arguments);
 				}
 					
