@@ -34,7 +34,8 @@ Usage
 Settings
 --------
 
-**API Filters**
+**1.API Filters**
+
 Applications uses REST APIs for different purpose. These are used based on the UI design and the functionality. Some of these calls may not be required to test.
 
 To handle these unnecessary calls API filter settings can be used.
@@ -44,7 +45,7 @@ To handle these unnecessary calls API filter settings can be used.
 4.	Save the changes. 
 5.	Use Export/Import to share the filter content with others.
 
-**Swagger Data**
+**2.Swagger Data**
 
 Swagger is a tool, which generates API document from the application’s rest code. The Swagger.json is standard for REST applications.
 
