@@ -50,6 +50,7 @@ To handle these unnecessary calls API filter settings can be used.
 Swagger is a tool, which generates API document from the application’s rest code. The Swagger.json is standard for REST applications.
 
 ![Alt text](/docs/swagger.png?raw=true)
+
 Here **paths** contains all the REST URL’s and their details. Upload this **swagger.json** to the extension, as it helps the extension to identify the URL and makes the recordings more readable.
 
 
