@@ -4,7 +4,8 @@ This extension is a helper tool for generating REST API test files compatible wi
 
 
 
-#Installation
+Installation
+------------
 1.	Download the project and keep it in some location. (UnZip if downloaded as ZIP)
 2.	Go to chrome extensions page (**chrome://extensions/**)
 3.	Enable **developer mode**.
@@ -12,7 +13,8 @@ This extension is a helper tool for generating REST API test files compatible wi
 5.	If there’s no error it will show the extension on chrome’s top right corner (Icon with letter **R**) 
 
 
-#Usage
+Usage
+-----
 
 1.	Open the web application and run the extension.
 2.	It will open a small window in bottom right corner of the web page.
@@ -29,15 +31,10 @@ This extension is a helper tool for generating REST API test files compatible wi
 8.	Click on **Download** button to get the property file containing all the monitored API calls.
 9.	This file will be in exact test format required by [REST API Testing framework](https://github.com/srinivas2207/RestApiTest)
 
+Settings
+--------
 
-#Swagger Data
-
-Swagger is a tool, which generates API document from the application’s rest code. The Swagger.json is standard for REST applications.
-
-Here **paths** contains all the REST URL’s and their details. Upload this **swagger.json** to the extension, as it helps the extension to identify the URL and makes the recordings more readable.
-
-
-#API Filters
+**API Filters**
 Applications uses REST APIs for different purpose. These are used based on the UI design and the functionality. Some of these calls may not be required to test.
 
 To handle these unnecessary calls API filter settings can be used.
@@ -46,4 +43,13 @@ To handle these unnecessary calls API filter settings can be used.
 3.	Check/Uncheck the API to filter.
 4.	Save the changes. 
 5.	Use Export/Import to share the filter content with others.
+
+**Swagger Data**
+
+Swagger is a tool, which generates API document from the application’s rest code. The Swagger.json is standard for REST applications.
+
+Here **paths** contains all the REST URL’s and their details. Upload this **swagger.json** to the extension, as it helps the extension to identify the URL and makes the recordings more readable.
+
+
+
 
