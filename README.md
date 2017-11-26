@@ -22,8 +22,7 @@ Usage
 3.	Expand the window and click on start to monitor API calls.
 4.	Based on User action, all the **AJAX** or **network calls** will be listed out.
 (**FileUpoad** and **FileDownload** related API calls will not be listed, these need to be handled manually from developer console)
-
-  
+ ![Alt text](/docs/usage2.png?raw=true)
 5.	Select the **API call** to Read, Edit, Delete or Filter.
 6.	Use **COPY** to get the API request info in test format.
 7.	Add the API Calls to recorder by providing comments.
@@ -43,11 +42,12 @@ To handle these unnecessary calls API filter settings can be used.
 3.	Check/Uncheck the API to filter.
 4.	Save the changes. 
 5.	Use Export/Import to share the filter content with others.
+ ![Alt text](/docs/filter.png?raw=true)
 
 **2.Swagger Data**
 
 Swagger is a tool, which generates API document from the application’s rest code. The Swagger.json is standard for REST applications.
-
+ ![Alt text](/docs/swagger.png?raw=true)
 Here **paths** contains all the REST URL’s and their details. Upload this **swagger.json** to the extension, as it helps the extension to identify the URL and makes the recordings more readable.
 
 
