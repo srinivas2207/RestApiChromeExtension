@@ -18,8 +18,7 @@ Usage
 
 1.	Open the web application and run the extension.
 2.	It will open a small window in bottom right corner of the web page.
-  
-
+  ![Alt text](/docs/usage1.png?raw=true)
 3.	Expand the window and click on start to monitor API calls.
 4.	Based on User action, all the **AJAX** or **network calls** will be listed out.
 (**FileUpoad** and **FileDownload** related API calls will not be listed, these need to be handled manually from developer console)
