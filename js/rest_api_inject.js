@@ -11,7 +11,7 @@ const API_PANEL_HTML =
             <span class='apipanel-minus'>
 			<b>-</b>
 		</span>
-            <span class='apipanel-close'>
+            <span class='apipanel-close' style = 'display: none'>
 			<b>X</b>
 		</span>
         </div>
