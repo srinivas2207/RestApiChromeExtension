@@ -16,7 +16,9 @@
 		var PROPERTY_POLL				= "API_POLL";
 		var PROPERTY_REQUEST			= "API_REQUEST";
 		var PROPERTY_RESPONSE			= "API_RESPONSE";
-		var PROPERTY_EXPECTED			= "API_EXPECTED";
+		var PROPERTY_COMPARE_RESPONSE	= "COMPARE_RESPONSE";
+		var PROPERTY_TEST_VARS			= "TEST_VARS";
+		var PROPERTY_TEST_CONDITION		= "TEST_CONDITION";
 		
 		var PROPERTY_FILE_PREFIX_DATA = "TEST_NAME=REST_API_TEST\n";
 		
@@ -199,29 +201,43 @@
 			var testData = "";
 			if (callObj) {
 				
-				var isPoll = (callObj.count && callObj.count > 2) ? true : false;
+				var apiName = callObj.apiName;
+				var apiUrl = callObj.url;
+				var apiHttpMethod = callObj.method;
+				var apiRequest = callObj.request;
+				var apiResponse = callObj.response;
+				var apiStatus= callObj.status;
+				var apiPoll = callObj.apiPoll;
+				var compareResponse = callObj.compareResponse;
+				var testVars = callObj.testVars;
+				var testCondition = callObj.testCondition;
 				
-				var request = callObj.request;
-				var response = callObj.response;
-				if (request) {
-					request = request.replace(/\r?\n|\r/g, " ");
-					request = request.replace(/\t/g," ");
-				} else {
-					request = "";
+				if (!apiPoll) {
+					apiPoll = (callObj.count && callObj.count > 2) ? true : false;
 				}
 				
-				if (response) {
-					response = response.replace(/\r?\n|\r/g, " ");
-					response = response.replace(/\t/g," ");
+				
+				var apiRequest = callObj.request;
+				var apiResponse = callObj.response;
+				if (apiRequest) {
+					apiRequest = apiRequest.replace(/\r?\n|\r/g, " ");
+					apiRequest = apiRequest.replace(/\t/g," ");
 				} else {
-					response = "";
+					apiRequest = "";
+				}
+				
+				if (apiResponse) {
+					apiResponse = apiResponse.replace(/\r?\n|\r/g, " ");
+					apiResponse = apiResponse.replace(/\t/g," ");
+				} else {
+					apiResponse = "";
 				}
 				
 				if (callObj.apiInfo && callObj.apiInfo.summary) {
 					testData += "#" + callObj.apiInfo.summary + "\n";
 				}
 				
-				if (isPoll && callObj.prevResponse && callObj.prevResponse.length > 0) {
+				if (apiPoll && callObj.prevResponse && callObj.prevResponse.length > 0) {
 					var prevResponse = callObj.prevResponse;
 					prevResponse = prevResponse.replace(/\r?\n|\r/g, " ");
 					prevResponse = prevResponse.replace(/\t/g," ");
@@ -232,24 +248,37 @@
 					testData += "#URL_FORMAT=" + callObj.apiInfo.path + "\n";
 				}
 				
-				testData += PROPERTY_API + "=" + callObj.apiName + "\n";
+				testData += PROPERTY_API + "=" + apiName + "\n";
 				
-				testData += PROPERTY_URL + "=" + callObj.url + "\n";
-				testData += PROPERTY_REQ_METHOD + "=" + callObj.method + "\n";
+				testData += PROPERTY_URL + "=" + apiUrl + "\n";
+				testData += PROPERTY_REQ_METHOD + "=" + apiHttpMethod + "\n";
 				
-				if (isPoll) {
+				if (apiRequest != null && apiRequest.length > 0) {
+					testData += PROPERTY_REQUEST + "=" + apiRequest + "\n";
+				}
+				
+				if (apiResponse != null && apiResponse.length > 0) {
+					testData += PROPERTY_RESPONSE + "=" + apiResponse + "\n";
+				}
+				
+				testData += PROPERTY_REQ_STATUES + "=" + apiStatus + "\n";
+				
+				if (apiPoll) {
 					testData += PROPERTY_POLL + "=true" + "\n";	
 				}
 				
-				if (request != null && request.length > 0) {
-					testData += PROPERTY_REQUEST + "=" + request + "\n";
+				if (compareResponse) {
+					testData += PROPERTY_COMPARE_RESPONSE + "=true" + "\n";	
 				}
 				
-				
-				if (response != null && response.length > 0) {
-					testData += PROPERTY_RESPONSE + "=" + response + "\n";
+				if (testVars != null && testVars.length > 0) {
+					testData += PROPERTY_TEST_VARS + "=" + testVars + "\n";
 				}
-				testData += PROPERTY_REQ_STATUES + "=" + callObj.status + "\n";		
+				
+				if (testCondition != null && testCondition.length > 0) {
+					testData += PROPERTY_TEST_CONDITION + "=" + testCondition + "\n";
+				}
+				
 			}
 			return testData;
 		}

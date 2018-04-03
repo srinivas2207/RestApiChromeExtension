@@ -197,9 +197,13 @@ const API_PANEL_CSS =
 
 	/* editor dialog content */
 
-	.apiEditorContainer {
+	.restapi-dialog-box .apiEditorContainer {
 	    width: 97%;
 	    padding: 10px;
+        height: 90%;
+		overflow: auto;
+	    display: inline-block;
+	    position: absolute;
 	}
 
 	.apiEditTA {
@@ -211,6 +215,14 @@ const API_PANEL_CSS =
 	#apiEditName {
 	    width: 100%;
 	}
+	
+	.restapi-dialog-box .dialogButtonContainer {
+		bottom: 0px;
+    	position: absolute;
+		right: 0px;
+	    padding: 0px 30px;
+	}
+
 
 
 	/* Gear */
@@ -475,3 +487,193 @@ const API_SETTINGS_CSS =
     float:right;
 }
 	`;
+	
+	
+
+const API_POPUP_CSS = 
+		`
+		/* Skin for Simple Dialog Box Plugin */
+	.restapi-dialog-box {
+	  width:300px;
+	  height:150px;
+	  background-color:white;
+	  border:1px solid #ccc;
+	  -webkit-box-shadow:0 1px 5px rgba(0,0,0,.2);
+	  -mz-box-shadow:0 1px 5px rgba(0,0,0,.2);
+	  box-shadow:0 1px 5px rgba(0,0,0,.2);
+	  position:absolute;
+	  width:200px;
+	  height:100px;
+	  margin-top:-51px;
+	  margin-left:-101px;
+	  z-index:9999;
+	  color:#666;
+	  visibility:hidden;
+	  opacity:0;
+	}
+	.restapi-dialog-box .restapi-dialog-title {
+	  margin:0;
+	  padding:0;
+	  font:inherit;
+	  color:inherit;
+	  font-weight:bold;
+	  height:2em;
+	  line-height:2em;
+	  overflow:hidden;
+	  padding:0 .8em;
+	  background-color:#eee;
+	  cursor:move;
+	}
+	.restapi-dialog-box .restapi-dialog-content {
+	  border-top:1px solid #ccc;
+	  padding:1px;
+	  position:absolute;
+	  top:2em;
+	  right:0;
+	  bottom:3em;
+	  left:0;
+	}
+	.restapi-dialog-box .restapi-dialog-content iframe {
+	  display:block;
+	  border:none;
+	  background:none;
+	  margin:0;
+	  padding:0;
+	  width:100%;
+	  height:100%;
+	}
+	.restapi-dialog-box .restapi-dialog-content::-webkit-scrollbar {
+	  width:8px;
+	  height:8px;
+	  background-color:#f5f5f5;
+	  border-left:1px solid #ccc;
+	}
+	.restapi-dialog-box .restapi-dialog-content::-webkit-scrollbar-thumb {
+	  background-color:#666;
+	  border:none;
+	}
+	.restapi-dialog-box .restapi-dialog-content::-webkit-scrollbar-thumb:hover {background-color:#555}
+	.restapi-dialog-box .restapi-dialog-content::-webkit-scrollbar-thumb:active {background-color:#444}
+	.restapi-dialog-box .restapi-dialog-action {
+	  position:absolute;
+	  right:0;
+	  bottom:0;
+	  left:0;
+	  height:2em;
+	  padding:.5em;
+	  background-color:#eee;
+	  border-top:1px solid #ccc;
+	  text-align:right;
+	}
+	.restapi-dialog-box .restapi-dialog-action .btn {
+	  text-decoration:none;
+	  border:none;
+	  outline:none;
+	  color:inherit;
+	  font-weight:bold;
+	  background-color:white;
+	  border:1px solid #ccc;
+	  -webkit-border-radius:.2em;
+	  -moz-border-radius:.2em;
+	  border-radius:.2em;
+	  padding:.4em 1em;
+	  margin-left:.2em;
+	  line-height:2em;
+	  cursor:pointer;
+	}
+	.restapi-dialog-box .restapi-dialog-close,
+	.restapi-dialog-box .restapi-dialog-minmax {
+	  border:none;
+	  outline:none;
+	  background:none;
+	  font:inherit;
+	  font-family:Arial,Sans-Serif;
+	  font-style:normal;
+	  font-weight:bold;
+	  font-size:150%;
+	  line-height:1.4em;
+	  color:#aaa;
+	  text-decoration:none;
+	  position:absolute;
+	  top:0;
+	  right:.3em;
+	  text-align:center;
+	  cursor:pointer;
+	}
+	.restapi-dialog-box .restapi-dialog-minmax {right:1.5em}
+	.restapi-dialog-box .restapi-dialog-close:focus,
+	.restapi-dialog-box .restapi-dialog-minmax:focus,
+	.restapi-dialog-box .restapi-dialog-action .btn:focus {
+	  border-width:0;
+	  outline:none;
+	}
+	.restapi-dialog-box .restapi-dialog-close:hover,
+	.restapi-dialog-box .restapi-dialog-minmax:hover {color:#777}
+	.restapi-dialog-box .restapi-dialog-close:focus,
+	.restapi-dialog-box .restapi-dialog-minmax:focus {color:#C90000}
+	.restapi-dialog-box .restapi-dialog-close:active,
+	.restapi-dialog-box .restapi-dialog-minmax:active {color:#444}
+	.restapi-dialog-box .restapi-dialog-action .btn:hover {border-color:#bbb}
+	.restapi-dialog-box .restapi-dialog-action .btn:focus {
+	  border-color:#aaa;
+	  border-width:1px;
+	}
+	.restapi-dialog-box .restapi-dialog-action .btn:active {
+	  border-color:#aaa;
+	  background-color:#f5f5f5;
+	}
+	.restapi-dialog-box + .restapi-dialog-box-overlay {
+	  background-color:black;
+	  opacity:.2;
+	  filter:alpha(opacity=20);
+	  position:fixed !important;
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  bottom:0;
+	  left:0;
+	  z-index:9997;
+	  display:none;
+	}
+	.restapi-dialog-box.fixed-restapi-dialog-box {
+	  position:fixed !important;
+	  position:absolute;
+	  overflow: auto;
+	}
+	.restapi-dialog-box.minimize {
+	  width:2em !important;
+	  height:2em !important;
+	  overflow:hidden !important;
+	  margin-top:0 !important;
+	  margin-left:0 !important;
+	  top:-1px !important;
+	  left:1em !important;
+	}
+	.restapi-dialog-box.minimize .restapi-dialog-title {
+	  color:transparent;
+	  text-shadow:none;
+	  text-indent:-9999px;
+	}
+	.restapi-dialog-box.minimize .restapi-dialog-minmax {
+	  right:0;
+	  left:0;
+	}
+	.restapi-dialog-box.minimize .restapi-dialog-close,
+	.restapi-dialog-box.minimize .restapi-dialog-content,
+	.restapi-dialog-box.minimize .restapi-dialog-action {
+	  display:none;
+	  visibility:hidden;
+	}
+	
+	.restapi-dialog-box .editorLabel {
+	    min-width:120px;
+	    text-transform: uppercase;
+	    display:inline-block
+	}
+
+	.restapi-dialog-box .editorTA {
+	  height: 4em;
+	  width: 90%;
+	}
+	
+		`;

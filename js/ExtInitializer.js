@@ -102,7 +102,7 @@
 	function addApiRecordPanel() {
 		var html = API_PANEL_HTML;
 				   
-		var apiPanelCss = API_PANEL_CSS;
+		var apiPanelCss = API_PANEL_CSS + " " + API_POPUP_CSS;
 			
 		$(document.body).append(html);
 		
@@ -110,6 +110,7 @@
 		css.type = "text/css";
 		css.innerHTML = apiPanelCss;
 		document.body.appendChild(css);
+		
 		
 		$(".apiInfoContainer").hide();
 		$("#apiDownload").hide();

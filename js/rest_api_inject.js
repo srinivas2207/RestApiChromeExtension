@@ -197,9 +197,13 @@ const API_PANEL_CSS =
 
 	/* editor dialog content */
 
-	.apiEditorContainer {
+	.restapi-dialog-box .apiEditorContainer {
 	    width: 97%;
 	    padding: 10px;
+        height: 90%;
+		overflow: auto;
+	    display: inline-block;
+	    position: absolute;
 	}
 
 	.apiEditTA {
@@ -211,6 +215,14 @@ const API_PANEL_CSS =
 	#apiEditName {
 	    width: 100%;
 	}
+	
+	.restapi-dialog-box .dialogButtonContainer {
+		bottom: 0px;
+    	position: absolute;
+		right: 0px;
+	    padding: 0px 30px;
+	}
+
 
 
 	/* Gear */
@@ -475,6 +487,196 @@ const API_SETTINGS_CSS =
     float:right;
 }
 	`;
+	
+	
+
+const API_POPUP_CSS = 
+		`
+		/* Skin for Simple Dialog Box Plugin */
+	.restapi-dialog-box {
+	  width:300px;
+	  height:150px;
+	  background-color:white;
+	  border:1px solid #ccc;
+	  -webkit-box-shadow:0 1px 5px rgba(0,0,0,.2);
+	  -mz-box-shadow:0 1px 5px rgba(0,0,0,.2);
+	  box-shadow:0 1px 5px rgba(0,0,0,.2);
+	  position:absolute;
+	  width:200px;
+	  height:100px;
+	  margin-top:-51px;
+	  margin-left:-101px;
+	  z-index:9999;
+	  color:#666;
+	  visibility:hidden;
+	  opacity:0;
+	}
+	.restapi-dialog-box .restapi-dialog-title {
+	  margin:0;
+	  padding:0;
+	  font:inherit;
+	  color:inherit;
+	  font-weight:bold;
+	  height:2em;
+	  line-height:2em;
+	  overflow:hidden;
+	  padding:0 .8em;
+	  background-color:#eee;
+	  cursor:move;
+	}
+	.restapi-dialog-box .restapi-dialog-content {
+	  border-top:1px solid #ccc;
+	  padding:1px;
+	  position:absolute;
+	  top:2em;
+	  right:0;
+	  bottom:3em;
+	  left:0;
+	}
+	.restapi-dialog-box .restapi-dialog-content iframe {
+	  display:block;
+	  border:none;
+	  background:none;
+	  margin:0;
+	  padding:0;
+	  width:100%;
+	  height:100%;
+	}
+	.restapi-dialog-box .restapi-dialog-content::-webkit-scrollbar {
+	  width:8px;
+	  height:8px;
+	  background-color:#f5f5f5;
+	  border-left:1px solid #ccc;
+	}
+	.restapi-dialog-box .restapi-dialog-content::-webkit-scrollbar-thumb {
+	  background-color:#666;
+	  border:none;
+	}
+	.restapi-dialog-box .restapi-dialog-content::-webkit-scrollbar-thumb:hover {background-color:#555}
+	.restapi-dialog-box .restapi-dialog-content::-webkit-scrollbar-thumb:active {background-color:#444}
+	.restapi-dialog-box .restapi-dialog-action {
+	  position:absolute;
+	  right:0;
+	  bottom:0;
+	  left:0;
+	  height:2em;
+	  padding:.5em;
+	  background-color:#eee;
+	  border-top:1px solid #ccc;
+	  text-align:right;
+	}
+	.restapi-dialog-box .restapi-dialog-action .btn {
+	  text-decoration:none;
+	  border:none;
+	  outline:none;
+	  color:inherit;
+	  font-weight:bold;
+	  background-color:white;
+	  border:1px solid #ccc;
+	  -webkit-border-radius:.2em;
+	  -moz-border-radius:.2em;
+	  border-radius:.2em;
+	  padding:.4em 1em;
+	  margin-left:.2em;
+	  line-height:2em;
+	  cursor:pointer;
+	}
+	.restapi-dialog-box .restapi-dialog-close,
+	.restapi-dialog-box .restapi-dialog-minmax {
+	  border:none;
+	  outline:none;
+	  background:none;
+	  font:inherit;
+	  font-family:Arial,Sans-Serif;
+	  font-style:normal;
+	  font-weight:bold;
+	  font-size:150%;
+	  line-height:1.4em;
+	  color:#aaa;
+	  text-decoration:none;
+	  position:absolute;
+	  top:0;
+	  right:.3em;
+	  text-align:center;
+	  cursor:pointer;
+	}
+	.restapi-dialog-box .restapi-dialog-minmax {right:1.5em}
+	.restapi-dialog-box .restapi-dialog-close:focus,
+	.restapi-dialog-box .restapi-dialog-minmax:focus,
+	.restapi-dialog-box .restapi-dialog-action .btn:focus {
+	  border-width:0;
+	  outline:none;
+	}
+	.restapi-dialog-box .restapi-dialog-close:hover,
+	.restapi-dialog-box .restapi-dialog-minmax:hover {color:#777}
+	.restapi-dialog-box .restapi-dialog-close:focus,
+	.restapi-dialog-box .restapi-dialog-minmax:focus {color:#C90000}
+	.restapi-dialog-box .restapi-dialog-close:active,
+	.restapi-dialog-box .restapi-dialog-minmax:active {color:#444}
+	.restapi-dialog-box .restapi-dialog-action .btn:hover {border-color:#bbb}
+	.restapi-dialog-box .restapi-dialog-action .btn:focus {
+	  border-color:#aaa;
+	  border-width:1px;
+	}
+	.restapi-dialog-box .restapi-dialog-action .btn:active {
+	  border-color:#aaa;
+	  background-color:#f5f5f5;
+	}
+	.restapi-dialog-box + .restapi-dialog-box-overlay {
+	  background-color:black;
+	  opacity:.2;
+	  filter:alpha(opacity=20);
+	  position:fixed !important;
+	  position:absolute;
+	  top:0;
+	  right:0;
+	  bottom:0;
+	  left:0;
+	  z-index:9997;
+	  display:none;
+	}
+	.restapi-dialog-box.fixed-restapi-dialog-box {
+	  position:fixed !important;
+	  position:absolute;
+	  overflow: auto;
+	}
+	.restapi-dialog-box.minimize {
+	  width:2em !important;
+	  height:2em !important;
+	  overflow:hidden !important;
+	  margin-top:0 !important;
+	  margin-left:0 !important;
+	  top:-1px !important;
+	  left:1em !important;
+	}
+	.restapi-dialog-box.minimize .restapi-dialog-title {
+	  color:transparent;
+	  text-shadow:none;
+	  text-indent:-9999px;
+	}
+	.restapi-dialog-box.minimize .restapi-dialog-minmax {
+	  right:0;
+	  left:0;
+	}
+	.restapi-dialog-box.minimize .restapi-dialog-close,
+	.restapi-dialog-box.minimize .restapi-dialog-content,
+	.restapi-dialog-box.minimize .restapi-dialog-action {
+	  display:none;
+	  visibility:hidden;
+	}
+	
+	.restapi-dialog-box .editorLabel {
+	    min-width:120px;
+	    text-transform: uppercase;
+	    display:inline-block
+	}
+
+	.restapi-dialog-box .editorTA {
+	  height: 4em;
+	  width: 90%;
+	}
+	
+		`;
 var REST_EXT = {};
 
 (function() {
@@ -576,7 +778,9 @@ var REST_EXT = {};
 		var PROPERTY_POLL				= "API_POLL";
 		var PROPERTY_REQUEST			= "API_REQUEST";
 		var PROPERTY_RESPONSE			= "API_RESPONSE";
-		var PROPERTY_EXPECTED			= "API_EXPECTED";
+		var PROPERTY_COMPARE_RESPONSE	= "COMPARE_RESPONSE";
+		var PROPERTY_TEST_VARS			= "TEST_VARS";
+		var PROPERTY_TEST_CONDITION		= "TEST_CONDITION";
 		
 		var PROPERTY_FILE_PREFIX_DATA = "TEST_NAME=REST_API_TEST\n";
 		
@@ -759,29 +963,43 @@ var REST_EXT = {};
 			var testData = "";
 			if (callObj) {
 				
-				var isPoll = (callObj.count && callObj.count > 2) ? true : false;
+				var apiName = callObj.apiName;
+				var apiUrl = callObj.url;
+				var apiHttpMethod = callObj.method;
+				var apiRequest = callObj.request;
+				var apiResponse = callObj.response;
+				var apiStatus= callObj.status;
+				var apiPoll = callObj.apiPoll;
+				var compareResponse = callObj.compareResponse;
+				var testVars = callObj.testVars;
+				var testCondition = callObj.testCondition;
 				
-				var request = callObj.request;
-				var response = callObj.response;
-				if (request) {
-					request = request.replace(/\r?\n|\r/g, " ");
-					request = request.replace(/\t/g," ");
-				} else {
-					request = "";
+				if (!apiPoll) {
+					apiPoll = (callObj.count && callObj.count > 2) ? true : false;
 				}
 				
-				if (response) {
-					response = response.replace(/\r?\n|\r/g, " ");
-					response = response.replace(/\t/g," ");
+				
+				var apiRequest = callObj.request;
+				var apiResponse = callObj.response;
+				if (apiRequest) {
+					apiRequest = apiRequest.replace(/\r?\n|\r/g, " ");
+					apiRequest = apiRequest.replace(/\t/g," ");
 				} else {
-					response = "";
+					apiRequest = "";
+				}
+				
+				if (apiResponse) {
+					apiResponse = apiResponse.replace(/\r?\n|\r/g, " ");
+					apiResponse = apiResponse.replace(/\t/g," ");
+				} else {
+					apiResponse = "";
 				}
 				
 				if (callObj.apiInfo && callObj.apiInfo.summary) {
 					testData += "#" + callObj.apiInfo.summary + "\n";
 				}
 				
-				if (isPoll && callObj.prevResponse && callObj.prevResponse.length > 0) {
+				if (apiPoll && callObj.prevResponse && callObj.prevResponse.length > 0) {
 					var prevResponse = callObj.prevResponse;
 					prevResponse = prevResponse.replace(/\r?\n|\r/g, " ");
 					prevResponse = prevResponse.replace(/\t/g," ");
@@ -792,24 +1010,37 @@ var REST_EXT = {};
 					testData += "#URL_FORMAT=" + callObj.apiInfo.path + "\n";
 				}
 				
-				testData += PROPERTY_API + "=" + callObj.apiName + "\n";
+				testData += PROPERTY_API + "=" + apiName + "\n";
 				
-				testData += PROPERTY_URL + "=" + callObj.url + "\n";
-				testData += PROPERTY_REQ_METHOD + "=" + callObj.method + "\n";
+				testData += PROPERTY_URL + "=" + apiUrl + "\n";
+				testData += PROPERTY_REQ_METHOD + "=" + apiHttpMethod + "\n";
 				
-				if (isPoll) {
+				if (apiRequest != null && apiRequest.length > 0) {
+					testData += PROPERTY_REQUEST + "=" + apiRequest + "\n";
+				}
+				
+				if (apiResponse != null && apiResponse.length > 0) {
+					testData += PROPERTY_RESPONSE + "=" + apiResponse + "\n";
+				}
+				
+				testData += PROPERTY_REQ_STATUES + "=" + apiStatus + "\n";
+				
+				if (apiPoll) {
 					testData += PROPERTY_POLL + "=true" + "\n";	
 				}
 				
-				if (request != null && request.length > 0) {
-					testData += PROPERTY_REQUEST + "=" + request + "\n";
+				if (compareResponse) {
+					testData += PROPERTY_COMPARE_RESPONSE + "=true" + "\n";	
 				}
 				
-				
-				if (response != null && response.length > 0) {
-					testData += PROPERTY_RESPONSE + "=" + response + "\n";
+				if (testVars != null && testVars.length > 0) {
+					testData += PROPERTY_TEST_VARS + "=" + testVars + "\n";
 				}
-				testData += PROPERTY_REQ_STATUES + "=" + callObj.status + "\n";		
+				
+				if (testCondition != null && testCondition.length > 0) {
+					testData += PROPERTY_TEST_CONDITION + "=" + testCondition + "\n";
+				}
+				
 			}
 			return testData;
 		}
@@ -897,6 +1128,8 @@ var REST_EXT = {};
 		
 		objRef.addRequest = addRequest;
 		objRef.clear = clear;
+		objRef.save = save;
+		
 		
 		var restApiDialog = null;
 		
@@ -931,6 +1164,7 @@ var REST_EXT = {};
 		}
 		
 		function _handleApiSelection(isSelected , apiId){
+			apiId = apiId + "";
 			if (isSelected) {
 				selectedRows.push(apiId);
 			} else {
@@ -974,21 +1208,12 @@ var REST_EXT = {};
 		function _handleTableButtonClick(type) {
 			switch (type) {
 			case EDIT_BTN_TYPE:
-				/*	apiEditorDialog = new REST_EXT.ApiEditorDialog(selectedApi);
-				buttonsArray = 
-				{
-					SAVE : function() {
-						var data = apiEditorDialog.getData();
-						apiCallRecorder.saveCallObj(data);
-						_updateRow(data);
-						apiEditorDialog.dispose();
-					},
-					CANCEL : function() {
-						apiEditorDialog.dispose();
-					}
-				}
-				apiEditorDialog.addButtons(buttonsArray);
-				apiEditorDialog.show(); */
+				var callId = selectedRows[0];
+				var data = apiCallRecorder.getCallObj(callId);
+				apiEditorDialog = new REST_EXT.ApiEditorDialog();
+				apiEditorDialog.setCaller(objRef);
+				apiEditorDialog.setData(data);
+				apiEditorDialog.show(); 
 				break;
 			case COPY_BTN_TYPE:
 				var callId = selectedRows[0];
@@ -1049,7 +1274,11 @@ var REST_EXT = {};
 				_addRow(data);
 			} else {
 				var rowHtml = _getRowHtml(data);
-				$('#apiInfoTable > tbody > tr').eq(index-1).after(rowHtml);
+				if(index == 0) {
+					$('#apiInfoTable > tbody > tr').eq(index).before(rowHtml);
+				} else {
+					$('#apiInfoTable > tbody > tr').eq(index-1).after(rowHtml);
+				}
 			}
 		}
 		
@@ -1110,99 +1339,251 @@ var REST_EXT = {};
 		function _replaceAll(str, find, replace) {
 			return str.replace(new RegExp(find, 'g'), replace);
 		}
+		
+		function save(apiCallInfo) {
+			var callId = apiCallInfo.callId + "";
+			_updateRow(callId, apiCallInfo);
+		}
 
 	}
 	
 })();
 
 
-( function()
-{
+(function() {
 	REST_EXT.ApiEditorDialog = ApiEditorDialog;
-
-	function ApiEditorDialog(apiCallData)
-	{
+	function ApiEditorDialog() {
 		var objRef = this;
-
-		/* private */
-		var _dlg;
+		var uniqueId = new Date().getTime();
+		var selected = null; // Object of the element to be moved
 		
-		/* public */
-		objRef.addButtons = addButtons;
+		var a = window;
+		var b = document;
+		
+		var height = 600;
+		var width = 800;
+		var title = "API Info";
+		var body = "<div id = 'apiEditorContainer' class = 'apiEditorContainer'> <label class='editorLabel'> <b>API_TEST</b> </label> <input id = 'apiName' type='text'/> <br> <br> <label class='editorLabel'> <b>API_URL</b> </label> <input id = 'apiUrl' type='text'/> <br> <br> <label class='editorLabel'> <b>API_METHOD</b> </label> <select id = 'apiHttpMethod'> <option value='GET'>GET</option> <option value='POST'>POST</option> <option value='DELETE'>DELETE</option> <option value='PUT'>PUT</option> </select> <br> <br> <label> <b>API_REQUEST</b> </label> <br> <textarea id = 'apiRequest' class = 'editorTA'> </textarea> <br> <br> <label> <b>API_RESPONSE</b> </label> <br> <textarea id = 'apiResponse' class = 'editorTA'> </textarea> <br> <br> <label class='editorLabel'> <b>API_STATUS</b> </label> <input id = 'apiStatus' type='text'/> <br> <br> <hr style='border: 1px dashed black;' /><br> <label class='editorLabel'> <b>API_POLL</b> </label> <input type='checkbox' id= 'apiPoll'/> <br> <br> <label class='editorLabel'> <b>COMPARE_RESPONSE</b> </label> <input type='checkbox' id= 'compareResponse'/> <br> <br> <label> <b>TEST_VARS</b> </label> <br> <textarea id = 'testVars' class = 'editorTA'> </textarea> <br> <br> <label> <b>TEST_CONDITION</b> </label> <br> <textarea id = 'testCondition' class = 'editorTA'> </textarea> <br> <br> </div><div class='dialogButtonContainer'><button id='cancelApiDialog'>Cancel</button> <button id='saveApiDialog'>Save</button></div>";
+		
+		var apiInfo = null;
+		var callerObj = null;
+		
+		init();
+		
+		dialog = b.getElementById('restapi-dialog-box-' + uniqueId), // The HTML of dialog box
+		dialog_title = dialog.children[0],
+		dialog_close = dialog.children[1],
+		dialog_content = dialog.children[2],
+		dialog_overlay = dialog.nextSibling;
+
+		objRef.setData = setData;
+		objRef.setCaller = setCaller;
 		objRef.show = show;
-		objRef.dispose = dispose;
-		objRef.getData = _getData;
 		
-		var _data = apiCallData;
+		function show() {
+			setDialog('open', {});
+			_fillContent();
+			document.getElementById("cancelApiDialog").addEventListener("click", function() { setDialog("close", {content:""});});
+			document.getElementById("saveApiDialog").addEventListener("click", _save);
+		}
 		
-		_initDialog(); 
+		function setData(data) {
+			apiInfo = data;
+		}
 		
-		function _initDialog()
-		{
-			var dialog = $(document.getElementById('apiEditorDialog')).dialog({
-				//dialogClass : "myChatContainer",
-				resizable : false,
-				autoOpen : false,
-				modal : true,
-				height : 500,
-				width : 600
-			});
+		function setCaller(caller) {
+			callerObj = caller;
+		}
+		
+		function setData(data) {
+			apiInfo = data;
+		}
+		
+		function init() {
+			var div = b.createElement('div'),
+			ovr = b.createElement('div');
+			div.className = 'restapi-dialog-box';
+			div.id = 'restapi-dialog-box-' + uniqueId;
+			div.innerHTML = '<h3 class="restapi-dialog-title">&nbsp;</h3><a href="javascript:;" class="restapi-dialog-close" title="Close">&times;</a><div class="restapi-dialog-content">&nbsp;</div>';
+			ovr.className = 'restapi-dialog-box-overlay';
+			b.body.appendChild(div);
+			b.body.appendChild(ovr);
+		}
+		
+		function setDialog(set, config) {
+			x_pos = 0,
+			y_pos = 0, // Stores x & y coordinates of the mouse pointer
+			x_elem = 0,
+			y_elem = 0, // Stores top, left values (edge) of the element
+			defaults = {
+				title: title,
+				content: body,
+				width: width,
+				height: height,
+				top: 100,
+				left: 100,
+				buttons: {
+					"Close": function() {
+						setDialog('close');
+					}
+				},
+				specialClass: "",
+				fixed: true,
+				overlay: false
+			}; // Default options...
+
+			for (var i in config) { defaults[i] = (typeof(config[i])) ? config[i] : defaults[i]; }
+
+			dialog.className =  "restapi-dialog-box " + (defaults.fixed ? 'fixed-restapi-dialog-box ' : '') + defaults.specialClass;
+			dialog.style.visibility = (set == "open") ? "visible" : "hidden";
+			dialog.style.opacity = (set == "open") ? 1 : 0;
+			dialog.style.width = defaults.width + 'px';
+			dialog.style.height = defaults.height + 'px';
+			dialog.style.top = (!defaults.top) ? "50%" : '0px';
+			dialog.style.left = (!defaults.left) ? "50%" : '0px';
+			dialog.style.marginTop = (!defaults.top) ? '-' + defaults.height/2 + 'px' : defaults.top + 'px';
+			dialog.style.marginLeft = (!defaults.left) ? '-' + defaults.width/2 + 'px' : defaults.left + 'px';
+			dialog_title.innerHTML = defaults.title;
+			dialog_content.innerHTML = defaults.content;
+			dialog_overlay.style.display = (set == "open" && defaults.overlay) ? "block" : "none";
+
+
+			// Bind the draggable function here...
+			dialog_title.onmousedown = function() {
+				_drag_init(this.parentNode);
+				return false;
+			};
+
+			dialog_close.onclick = function() {
+				setDialog("close", {content:""});
+			};
+
+			b.onmousemove = _move_elem;
+			b.onmouseup = _destroy;
+		}
+		
+		// Will be called when user starts dragging an element
+		function _drag_init(elem) {
+			selected = elem; // Store the object of the element which needs to be moved
+			x_elem = x_pos - selected.offsetLeft;
+			y_elem = y_pos - selected.offsetTop;
+		}
+
+		// Will be called when user dragging an element
+		function _move_elem(e) {
+			x_pos = b.all ? a.event.clientX : e.pageX;
+			y_pos = b.all ? a.event.clientY : e.pageY;
+			if (selected !== null) {
+				selected.style.left = !defaults.left ? ((x_pos - x_elem) + selected.offsetWidth/2) + 'px' : ((x_pos - x_elem) - defaults.left) + 'px';
+				selected.style.top = !defaults.top ? ((y_pos - y_elem) + selected.offsetHeight/2) + 'px' : ((y_pos - y_elem) - defaults.top) + 'px';
+			}
+		}
+
+		// Destroy the object when we are done
+		function _destroy() {
+			selected = null;
+		}
+		
+		function _save() {
+			var apiName;
+			var apiUrl;
+			var apiHttpMethod;
+			var apiRequest;
+			var apiResponse;
+			var apiStatus;
+			var apiPoll;
+			var compareResponse;
+			var testVars;
+			var testCondition;
 			
-			 $(".ui-dialog-titlebar-close").on("click", function() {
-				 objRef.dispose();
-			 });
+			apiName = document.getElementById("apiName").value;
+			apiUrl = document.getElementById("apiUrl").value;
+			apiRequest = document.getElementById("apiRequest").value;
+			apiResponse = document.getElementById("apiResponse").value;
+			apiStatus = document.getElementById("apiStatus").value;
+			testVars = document.getElementById("testVars").value;
+			testCondition = document.getElementById("testCondition").value;
 			
-			_dlg =  dialog;
-			_setHeader("Api Call Info");
-			_setBody(_getEditorHtml());
-		}
-		
-		function _setHeader(heading)
-		{
-			_dlg.dialog('option', 'title', heading);
-		}
-
-		function _setBody(content)
- 		{
-			_dlg.html(content);	
-		}
-		
-		function addButtons(buttonsArray)
-		{
-			_dlg.dialog('option', 'buttons', buttonsArray);
-		}
-
-		
-		function show()
-		{
-			// open the dialog
-			_dlg.dialog('open');
+			apiHttpMethod = document.getElementById("apiHttpMethod").value;
 			
-			$("#apiEditName").val(_data.apiName);
-			$("#apiEditRequest").val(_data.request);
-			$("#apiEditResponse").val(_data.response);
-		}
+			apiPoll = document.getElementById("apiPoll").checked;
+			compareResponse = document.getElementById("compareResponse").checked;
+			
 
-		function dispose()
-		{
-			_dlg.dialog('close');
-			_dlg.dialog('destroy');
+			apiInfo.apiName = apiName;
+			apiInfo.url = apiUrl;
+			apiInfo.method = apiHttpMethod;
+			apiInfo.request = apiRequest;
+			apiInfo.response = apiResponse;
+			apiInfo.status = apiStatus;
+			apiInfo.apiPoll = apiPoll;
+			apiInfo.compareResponse = compareResponse;
+			apiInfo.testVars = testVars;
+			apiInfo.testCondition = testCondition;		
+			
+			callerObj.save(apiInfo);
+			
+			setDialog("close", {content:""});
 		}
-
-		function _getEditorHtml() {
-			return "<div class = 'apiEditorContainer'> <label><b>Name</b> </label> <input id = 'apiEditName' type='text' name='Comment'></input> <br><br> <label><b>Request</b> </label><br> <textarea id = 'apiEditRequest' class = 'apiEditTA'> </textarea> <br><br> <label><b>Response</b> </label><br> <textarea id = 'apiEditResponse' class = 'apiEditTA'> </textarea> </div>";
+		
+		function _fillContent() {
+			var apiName = apiInfo.apiName;
+			var apiUrl = apiInfo.url;
+			var apiHttpMethod = apiInfo.method;
+			var apiRequest = apiInfo.request;
+			var apiResponse = apiInfo.response;
+			var apiStatus= apiInfo.status;
+			var apiPoll = apiInfo.apiPoll;
+			var compareResponse = apiInfo.compareResponse;
+			var testVars = apiInfo.testVars;
+			var testCondition = apiInfo.testCondition;
+			
+			if (!apiPoll) {
+				apiPoll = (apiInfo.count && apiInfo.count > 2) ? true : false;
+			}
+			
+			if (!compareResponse) {
+				compareResponse = false;
+			}
+			
+			if (!apiRequest) {
+				apiRequest = "";
+			}
+			
+			if (!apiResponse) {
+				apiResponse = "";
+			}
+			
+			if (!testVars) {
+				testVars = "";
+			}
+			
+			if (!testCondition) {
+				testCondition = "";
+			}
+			
+			document.getElementById("apiName").value = apiName;
+			document.getElementById("apiUrl").value = apiUrl;
+			document.getElementById("apiRequest").value = apiRequest
+			document.getElementById("apiResponse").value = apiResponse;
+			document.getElementById("apiStatus").value = apiStatus;
+			document.getElementById("testVars").value = testVars;
+			document.getElementById("testCondition").value = testCondition;
+			document.getElementById("apiHttpMethod").value = apiHttpMethod;
+			
+			document.getElementById("compareResponse").checked = compareResponse;
+			document.getElementById("apiPoll").checked = apiPoll;
 		}
+		
+	};
 	
-	
-		function _getData() {
-			_data.apiName =  $("#apiEditName").val();
-			_data.request = $("#apiEditRequest").val();
-			_data.response=  $("#apiEditResponse").val();
-			return _data;
+	ApiEditorDialog.getInstance = function () {
+		if (!ApiEditorDialog.instance) {
+			ApiEditorDialog.instance = new ApiEditorDialog();
 		}
-	}
+		return ApiEditorDialog.instance;
+	};
 })();
-
 ( function()
 {
 	REST_EXT.ApiFilter = ApiFilter;
@@ -2186,7 +2567,7 @@ var REST_EXT = {};
 	function addApiRecordPanel() {
 		var html = API_PANEL_HTML;
 				   
-		var apiPanelCss = API_PANEL_CSS;
+		var apiPanelCss = API_PANEL_CSS + " " + API_POPUP_CSS;
 			
 		$(document.body).append(html);
 		
@@ -2194,6 +2575,7 @@ var REST_EXT = {};
 		css.type = "text/css";
 		css.innerHTML = apiPanelCss;
 		document.body.appendChild(css);
+		
 		
 		$(".apiInfoContainer").hide();
 		$("#apiDownload").hide();

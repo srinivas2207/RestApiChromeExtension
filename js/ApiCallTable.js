@@ -13,6 +13,8 @@
 		
 		objRef.addRequest = addRequest;
 		objRef.clear = clear;
+		objRef.save = save;
+		
 		
 		var restApiDialog = null;
 		
@@ -47,6 +49,7 @@
 		}
 		
 		function _handleApiSelection(isSelected , apiId){
+			apiId = apiId + "";
 			if (isSelected) {
 				selectedRows.push(apiId);
 			} else {
@@ -90,21 +93,12 @@
 		function _handleTableButtonClick(type) {
 			switch (type) {
 			case EDIT_BTN_TYPE:
-				/*	apiEditorDialog = new REST_EXT.ApiEditorDialog(selectedApi);
-				buttonsArray = 
-				{
-					SAVE : function() {
-						var data = apiEditorDialog.getData();
-						apiCallRecorder.saveCallObj(data);
-						_updateRow(data);
-						apiEditorDialog.dispose();
-					},
-					CANCEL : function() {
-						apiEditorDialog.dispose();
-					}
-				}
-				apiEditorDialog.addButtons(buttonsArray);
-				apiEditorDialog.show(); */
+				var callId = selectedRows[0];
+				var data = apiCallRecorder.getCallObj(callId);
+				apiEditorDialog = new REST_EXT.ApiEditorDialog();
+				apiEditorDialog.setCaller(objRef);
+				apiEditorDialog.setData(data);
+				apiEditorDialog.show(); 
 				break;
 			case COPY_BTN_TYPE:
 				var callId = selectedRows[0];
@@ -165,7 +159,11 @@
 				_addRow(data);
 			} else {
 				var rowHtml = _getRowHtml(data);
-				$('#apiInfoTable > tbody > tr').eq(index-1).after(rowHtml);
+				if(index == 0) {
+					$('#apiInfoTable > tbody > tr').eq(index).before(rowHtml);
+				} else {
+					$('#apiInfoTable > tbody > tr').eq(index-1).after(rowHtml);
+				}
 			}
 		}
 		
@@ -225,6 +223,11 @@
 
 		function _replaceAll(str, find, replace) {
 			return str.replace(new RegExp(find, 'g'), replace);
+		}
+		
+		function save(apiCallInfo) {
+			var callId = apiCallInfo.callId + "";
+			_updateRow(callId, apiCallInfo);
 		}
 
 	}
