@@ -14,8 +14,16 @@ window.addEventListener("message", function(event) {
     sendApiFilterData();
   }
   
+  if (event.data.type == "API_PARAM_FILTER_DATA_REQUEST") {
+	sendApiParamFilterData();
+  }
+  
   if (event.data.type == "API_FILTER_DATA_SAVE") {
     saveApiFilterData(event.data.data);
+  }
+  
+  if (event.data.type == "API_PARAM_FILTER_DATA_SAVE") {
+	saveApiParamFilterData(event.data.data);
   }
   
   if (event.data.type == "API_SWAGGER_DATA_REQUEST") {
@@ -38,6 +46,18 @@ function sendApiFilterData() {
     });
 }
 
+
+function sendApiParamFilterData() {
+	chrome.runtime.sendMessage({
+		"command": "API_PARAM_FILTER_DATA_REQUEST"
+	}, function(response) {
+		const domain = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+		var filterData = response.data;
+		window.postMessage({ type: 'API_PARAM_FILTER_DATA_RESULT', data: filterData}, domain);
+    });
+}
+
+
 function sendApiSwaggerData() {
 	chrome.runtime.sendMessage({
 		"command": "API_SWAGGER_DATA_REQUEST"
@@ -51,6 +71,14 @@ function sendApiSwaggerData() {
 function saveApiFilterData(data) {
 	chrome.runtime.sendMessage({
 		"command": "API_FILTER_DATA_SAVE",
+		"data" : data
+	}, function(response) {
+    });
+}
+
+function saveApiParamFilterData(data) {
+	chrome.runtime.sendMessage({
+		"command": "API_PARAM_FILTER_DATA_SAVE",
 		"data" : data
 	}, function(response) {
     });

@@ -204,6 +204,7 @@ const API_PANEL_CSS =
 		overflow: auto;
 	    display: inline-block;
 	    position: absolute;
+	    border-bottom: 1px solid #ccc;
 	}
 
 	.apiEditTA {
@@ -221,6 +222,7 @@ const API_PANEL_CSS =
     	position: absolute;
 		right: 0px;
 	    padding: 0px 30px;
+    	margin-bottom: -20px;
 	}
 
 
@@ -320,8 +322,9 @@ const API_SETTINGS_HTML =
 	    <a href='#'>Home</a></div>
 	  <div class = 'apiSettingsOption'>
 	    <select id = 'apiSettingsOption' >
-	      <option value="filter">Filter Table</option>
+	      <option value="filter">API Filter</option>
 	      <option value="swagger">Swagger Data</option>
+	      <option value="paramFilter">Param Filter</option>
 	    </select>
 	  </div> 
 	    </div>
@@ -358,6 +361,14 @@ const API_SETTINGS_HTML =
 	    <div>
 	    	<input id="uploadSwaggerJson" type=file   accept=".json" name="files[]"/>
 	    	<button id='downloadSwagger'>Download</button>
+	    </div>
+	   </div>
+	   
+	   <div id='apiParamFilterContainer' style='display:none'>
+	    <br>
+	     <label>POST/GET Params (Seperated with comma)</label>
+	    <div>
+	    	<textarea id='apiParamFilterInput' rows='4' cols='50'> </textarea>
 	    </div>
 	   </div>
 	  <button id='saveBtn' class = 'saveBtn'>Save</button>
@@ -665,10 +676,19 @@ const API_POPUP_CSS =
 	  visibility:hidden;
 	}
 	
-	.restapi-dialog-box .editorLabel {
-	    min-width:120px;
+	.restapi-dialog-box .apiEditorLabel {
+	    width:20%;
 	    text-transform: uppercase;
 	    display:inline-block
+	}
+	
+	.restapi-dialog-box .apiEditorInput {
+	    width:60%;
+	}
+	
+	.restapi-dialog-box .dialogButtonContainer button {
+		margin-right: 10px;
+    	padding: 5px 10px;
 	}
 
 	.restapi-dialog-box .editorTA {
@@ -766,8 +786,6 @@ var REST_EXT = {};
 	function ApiRecorder() {
 		var objRef = this;
 		
-		var PARAMETER_FILTER  = ["_"];
-		
 		var apiCount = 0;
 		var apiCounter = 1;
 		
@@ -825,7 +843,7 @@ var REST_EXT = {};
 				var paramList = params.split("&");
 				for(var i=0; i<paramList.length; i++) {
 					var param = paramList[i].split("=")[0];
-					if (!_isParamFiltered(param)) {
+					if (!apiFilter.isParamFiltered(param)) {
 						if (paramStr.length == 0) {
 							paramStr = "?" + paramList[i];
 						} else {
@@ -844,15 +862,6 @@ var REST_EXT = {};
 			apiCallTable.addRequest(apiCalls[callId]);
 			
 			return callId;
-		}
-		
-		function _isParamFiltered(param) {
-			for(var i=0; i<PARAMETER_FILTER.length; i++) {
-				if (param == PARAMETER_FILTER[i]) {
-					return true;
-				}
-			}
-			return false;
 		}
 		
 		function _handlePollRequest(callId, url, method, request) {
@@ -1034,10 +1043,14 @@ var REST_EXT = {};
 				}
 				
 				if (testVars != null && testVars.length > 0) {
+					testVars = testVars.replace(/\r?\n|\r/g, " ");
+					testVars = testVars.replace(/\t/g," ");
 					testData += PROPERTY_TEST_VARS + "=" + testVars + "\n";
 				}
 				
 				if (testCondition != null && testCondition.length > 0) {
+					testCondition = testCondition.replace(/\r?\n|\r/g, " ");
+					testCondition = testCondition.replace(/\t/g," ");
 					testData += PROPERTY_TEST_CONDITION + "=" + testCondition + "\n";
 				}
 				
@@ -1363,7 +1376,7 @@ var REST_EXT = {};
 		var height = 600;
 		var width = 800;
 		var title = "API Info";
-		var body = "<div id = 'apiEditorContainer' class = 'apiEditorContainer'> <label class='editorLabel'> <b>API_TEST</b> </label> <input id = 'apiName' type='text'/> <br> <br> <label class='editorLabel'> <b>API_URL</b> </label> <input id = 'apiUrl' type='text'/> <br> <br> <label class='editorLabel'> <b>API_METHOD</b> </label> <select id = 'apiHttpMethod'> <option value='GET'>GET</option> <option value='POST'>POST</option> <option value='DELETE'>DELETE</option> <option value='PUT'>PUT</option> </select> <br> <br> <label> <b>API_REQUEST</b> </label> <br> <textarea id = 'apiRequest' class = 'editorTA'> </textarea> <br> <br> <label> <b>API_RESPONSE</b> </label> <br> <textarea id = 'apiResponse' class = 'editorTA'> </textarea> <br> <br> <label class='editorLabel'> <b>API_STATUS</b> </label> <input id = 'apiStatus' type='text'/> <br> <br> <hr style='border: 1px dashed black;' /><br> <label class='editorLabel'> <b>API_POLL</b> </label> <input type='checkbox' id= 'apiPoll'/> <br> <br> <label class='editorLabel'> <b>COMPARE_RESPONSE</b> </label> <input type='checkbox' id= 'compareResponse'/> <br> <br> <label> <b>TEST_VARS</b> </label> <br> <textarea id = 'testVars' class = 'editorTA'> </textarea> <br> <br> <label> <b>TEST_CONDITION</b> </label> <br> <textarea id = 'testCondition' class = 'editorTA'> </textarea> <br> <br> </div><div class='dialogButtonContainer'><button id='cancelApiDialog'>Cancel</button> <button id='saveApiDialog'>Save</button></div>";
+		var body = "<div id = 'apiEditorContainer' class = 'apiEditorContainer'> <label class='apiEditorLabel'> <b>API_TEST</b> </label> <input id = 'apiName' type='text' class='apiEditorInput'/> <br> <br> <label class='apiEditorLabel'> <b>API_URL</b> </label> <input id = 'apiUrl' type='text' class='apiEditorInput'/> <br> <br> <label class='apiEditorLabel'> <b>API_METHOD</b> </label> <select id = 'apiHttpMethod'> <option value='GET'>GET</option> <option value='POST'>POST</option> <option value='DELETE'>DELETE</option> <option value='PUT'>PUT</option> </select> <br> <br> <label> <b>API_REQUEST</b> </label> <br> <textarea id = 'apiRequest' class = 'editorTA'> </textarea> <br> <br> <label> <b>API_RESPONSE</b> </label> <br> <textarea id = 'apiResponse' class = 'editorTA'> </textarea> <br> <br> <label class='apiEditorLabel'> <b>API_STATUS</b> </label> <input id = 'apiStatus' type='text'/> <br> <br> <hr style='border: 1px dashed black;' /><br> <label class='apiEditorLabel'> <b>API_POLL</b> </label> <input type='checkbox' id= 'apiPoll'/> <br> <br> <label class='apiEditorLabel'> <b>COMPARE_RESPONSE</b> </label> <input type='checkbox' id= 'compareResponse'/> <br> <br> <label> <b>TEST_VARS</b> </label> <br> <textarea id = 'testVars' class = 'editorTA'> </textarea> <br> <br> <label> <b>TEST_CONDITION</b> </label> <br> <textarea id = 'testCondition' class = 'editorTA'> </textarea> <br> <br> </div><div class='dialogButtonContainer'><button id='cancelApiDialog'>Cancel</button> <button id='saveApiDialog'>Save</button></div>";
 		
 		var apiInfo = null;
 		var callerObj = null;
@@ -1595,10 +1608,13 @@ var REST_EXT = {};
 		
 		var customFilteredData = {};
 		var selectedCustomFilters = [];
+		var paramFilterData = [];
 		
 		var ApiDoc = REST_EXT.ApiDoc;
 	
 		objRef.isApiCallAllowed = _isApiCallAllowed;
+		objRef.isParamFiltered = _isParamFiltered;
+		
 		objRef.render = render;
 		objRef.addFilter = _addFilter;
 		
@@ -1608,6 +1624,9 @@ var REST_EXT = {};
 		objRef.setSwaggerData = setSwaggerData;	
 		objRef.getSwaggerData = getSwaggerData;
 		
+		objRef.getApiParamFilterData = getApiParamFilterData;	
+		objRef.saveApiParamFilterData = saveApiParamFilterData;
+		
 		_init();
 		
 		function _init() {
@@ -1616,6 +1635,7 @@ var REST_EXT = {};
 			
 			_requestApiFilterData();
 			_requestApiSwaggerData();
+			_requestApiParamFilterData();
 			
 			// Fetching customFilteredPanel from browser storage
 			_initListeners();
@@ -1632,6 +1652,10 @@ var REST_EXT = {};
 				
 				if (event.data.type && (event.data.type == "API_SWAGGER_DATA_RESULT")) {
 					loadSwaggerData(event.data.data);
+				}
+				
+				if (event.data.type && (event.data.type == "API_PARAM_FILTER_DATA_RESULT")) {
+					loadParamFilterData(event.data.data);
 				}
 				
 			}, false);
@@ -1652,6 +1676,12 @@ var REST_EXT = {};
 				if(filterData["selectedCustomFilters"]) {
 					selectedCustomFilters = filterData["selectedCustomFilters"]
 				}
+			}
+		}
+		
+		function loadParamFilterData(data) {
+			if (data) {
+				paramFilterData =data.split(",");
 			}
 		}
 		
@@ -1684,6 +1714,12 @@ var REST_EXT = {};
 			window.postMessage({ type: 'API_SWAGGER_DATA_REQUEST'}, domain);
 		}
 		
+		function _requestApiParamFilterData() {
+			const domain = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+			window.postMessage({ type: 'API_PARAM_FILTER_DATA_REQUEST'}, domain);
+		}
+		
+		
 		function _saveApiFilterData(filterData) {
 			const domain = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
 			window.postMessage({ type: 'API_FILTER_DATA_SAVE', data: filterData}, domain);
@@ -1699,6 +1735,16 @@ var REST_EXT = {};
 			window.postMessage({ type: 'API_SWAGGER_DATA_SAVE', data: swagData}, domain);
 			
 			ApiDoc.getInstance().updateSwaggerData(swaggerData);
+		}
+		
+		function saveApiParamFilterData(filterData) {
+			paramFilterData = filterData;
+			const domain = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+			window.postMessage({ type: 'API_PARAM_FILTER_DATA_SAVE', data: paramFilterData}, domain);
+		}
+		
+		function getApiParamFilterData() {
+			return paramFilterData;
 		}
 		
 		function _initListeners() 
@@ -1936,6 +1982,16 @@ var REST_EXT = {};
 		
 		function _replaceAll(str, find, replace) {
 			return str.replace(new RegExp(find, 'g'), replace);
+		}
+		
+		function _isParamFiltered(param) {
+			for(var i=0; i<paramFilterData.length; i++) {
+				var filterParam = paramFilterData[i].trim();
+				if (param == filterParam) {
+					return true;
+				}
+			}
+			return false;
 		}
 		
 		function _isApiCallAllowed(method, url) {
@@ -2366,13 +2422,20 @@ var REST_EXT = {};
 		
 		function render() {
 			if (currentPage == "filter") {
+				$('#apiParamFilterContainer').hide();
 				$('#apiFilterContainer').show();
 			    $('#swaggerDataContainer').hide();
 				ApiFilter.render();
-			} else {
+			} else if (currentPage == "swagger") {
+				$('#apiParamFilterContainer').hide();
 				$('#apiFilterContainer').hide();
 			    $('#swaggerDataContainer').show();
 				_showSwaggerPage();
+			} else {
+				$('#apiFilterContainer').hide();
+			    $('#swaggerDataContainer').hide();
+			    $('#apiParamFilterContainer').show();
+			    _showParamFilterPage();
 			}
 		}
 		
@@ -2383,6 +2446,13 @@ var REST_EXT = {};
 				$(swaggerBtn).show();
 			} else {
 				$(swaggerBtn).hide();
+			}
+		}
+		
+		function _showParamFilterPage() {
+			var paramFilterData = ApiFilter.getApiParamFilterData();
+			if (paramFilterData) {
+				document.getElementById("apiParamFilterInput").value = paramFilterData;
 			}
 		}
 		
@@ -2442,7 +2512,7 @@ var REST_EXT = {};
 		function _saveSettings() {
 			if (currentPage == "filter") {
 				ApiFilter.saveFilterData();
-			} else {
+			} else if (currentPage == "swagger"){
 				if (localSwaggerData) {
 					ApiFilter.setSwaggerData(localSwaggerData);
 				}
@@ -2450,6 +2520,11 @@ var REST_EXT = {};
 				
 				localSwaggerData = null;
 				_showSwaggerPage();
+			} else {
+				var data = document.getElementById("apiParamFilterInput").value;
+				if (data) {
+					ApiFilter.saveApiParamFilterData(data);
+				}
 			}
 		}
 	}

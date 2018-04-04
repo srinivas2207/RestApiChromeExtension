@@ -29,12 +29,19 @@ chrome.runtime.onMessage.addListener(
 			var data = localStorage["API_FILTER_DATA" + domain];
 			sendResponse({"data" : data});
 			break;
+		case "API_PARAM_FILTER_DATA_REQUEST":
+			var data = localStorage["API_PARAM_FILTER_DATA" + domain];
+			sendResponse({"data" : data});
+			break;
 		case "API_SWAGGER_DATA_REQUEST":
 			var data = localStorage["API_SWAGGER_DATA" + domain];
 			sendResponse({"data" : data});
 			break;
 		case "API_FILTER_DATA_SAVE":
 			localStorage["API_FILTER_DATA" + domain] = request.data;;
+			break;
+		case "API_PARAM_FILTER_DATA_SAVE":
+			localStorage["API_PARAM_FILTER_DATA" + domain] = request.data;;
 			break;
 		case "API_SWAGGER_DATA_SAVE":
 			localStorage["API_SWAGGER_DATA" + domain] = request.data;;

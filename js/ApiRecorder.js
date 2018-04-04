@@ -4,8 +4,6 @@
 	function ApiRecorder() {
 		var objRef = this;
 		
-		var PARAMETER_FILTER  = ["_"];
-		
 		var apiCount = 0;
 		var apiCounter = 1;
 		
@@ -63,7 +61,7 @@
 				var paramList = params.split("&");
 				for(var i=0; i<paramList.length; i++) {
 					var param = paramList[i].split("=")[0];
-					if (!_isParamFiltered(param)) {
+					if (!apiFilter.isParamFiltered(param)) {
 						if (paramStr.length == 0) {
 							paramStr = "?" + paramList[i];
 						} else {
@@ -82,15 +80,6 @@
 			apiCallTable.addRequest(apiCalls[callId]);
 			
 			return callId;
-		}
-		
-		function _isParamFiltered(param) {
-			for(var i=0; i<PARAMETER_FILTER.length; i++) {
-				if (param == PARAMETER_FILTER[i]) {
-					return true;
-				}
-			}
-			return false;
 		}
 		
 		function _handlePollRequest(callId, url, method, request) {
@@ -272,10 +261,14 @@
 				}
 				
 				if (testVars != null && testVars.length > 0) {
+					testVars = testVars.replace(/\r?\n|\r/g, " ");
+					testVars = testVars.replace(/\t/g," ");
 					testData += PROPERTY_TEST_VARS + "=" + testVars + "\n";
 				}
 				
 				if (testCondition != null && testCondition.length > 0) {
+					testCondition = testCondition.replace(/\r?\n|\r/g, " ");
+					testCondition = testCondition.replace(/\t/g," ");
 					testData += PROPERTY_TEST_CONDITION + "=" + testCondition + "\n";
 				}
 				

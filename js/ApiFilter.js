@@ -9,10 +9,13 @@
 		
 		var customFilteredData = {};
 		var selectedCustomFilters = [];
+		var paramFilterData = [];
 		
 		var ApiDoc = REST_EXT.ApiDoc;
 	
 		objRef.isApiCallAllowed = _isApiCallAllowed;
+		objRef.isParamFiltered = _isParamFiltered;
+		
 		objRef.render = render;
 		objRef.addFilter = _addFilter;
 		
@@ -22,6 +25,9 @@
 		objRef.setSwaggerData = setSwaggerData;	
 		objRef.getSwaggerData = getSwaggerData;
 		
+		objRef.getApiParamFilterData = getApiParamFilterData;	
+		objRef.saveApiParamFilterData = saveApiParamFilterData;
+		
 		_init();
 		
 		function _init() {
@@ -30,6 +36,7 @@
 			
 			_requestApiFilterData();
 			_requestApiSwaggerData();
+			_requestApiParamFilterData();
 			
 			// Fetching customFilteredPanel from browser storage
 			_initListeners();
@@ -46,6 +53,10 @@
 				
 				if (event.data.type && (event.data.type == "API_SWAGGER_DATA_RESULT")) {
 					loadSwaggerData(event.data.data);
+				}
+				
+				if (event.data.type && (event.data.type == "API_PARAM_FILTER_DATA_RESULT")) {
+					loadParamFilterData(event.data.data);
 				}
 				
 			}, false);
@@ -66,6 +77,12 @@
 				if(filterData["selectedCustomFilters"]) {
 					selectedCustomFilters = filterData["selectedCustomFilters"]
 				}
+			}
+		}
+		
+		function loadParamFilterData(data) {
+			if (data) {
+				paramFilterData =data.split(",");
 			}
 		}
 		
@@ -98,6 +115,12 @@
 			window.postMessage({ type: 'API_SWAGGER_DATA_REQUEST'}, domain);
 		}
 		
+		function _requestApiParamFilterData() {
+			const domain = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+			window.postMessage({ type: 'API_PARAM_FILTER_DATA_REQUEST'}, domain);
+		}
+		
+		
 		function _saveApiFilterData(filterData) {
 			const domain = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
 			window.postMessage({ type: 'API_FILTER_DATA_SAVE', data: filterData}, domain);
@@ -113,6 +136,16 @@
 			window.postMessage({ type: 'API_SWAGGER_DATA_SAVE', data: swagData}, domain);
 			
 			ApiDoc.getInstance().updateSwaggerData(swaggerData);
+		}
+		
+		function saveApiParamFilterData(filterData) {
+			paramFilterData = filterData;
+			const domain = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port;
+			window.postMessage({ type: 'API_PARAM_FILTER_DATA_SAVE', data: paramFilterData}, domain);
+		}
+		
+		function getApiParamFilterData() {
+			return paramFilterData;
 		}
 		
 		function _initListeners() 
@@ -350,6 +383,16 @@
 		
 		function _replaceAll(str, find, replace) {
 			return str.replace(new RegExp(find, 'g'), replace);
+		}
+		
+		function _isParamFiltered(param) {
+			for(var i=0; i<paramFilterData.length; i++) {
+				var filterParam = paramFilterData[i].trim();
+				if (param == filterParam) {
+					return true;
+				}
+			}
+			return false;
 		}
 		
 		function _isApiCallAllowed(method, url) {

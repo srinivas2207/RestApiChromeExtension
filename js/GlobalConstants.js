@@ -204,6 +204,7 @@ const API_PANEL_CSS =
 		overflow: auto;
 	    display: inline-block;
 	    position: absolute;
+	    border-bottom: 1px solid #ccc;
 	}
 
 	.apiEditTA {
@@ -221,6 +222,7 @@ const API_PANEL_CSS =
     	position: absolute;
 		right: 0px;
 	    padding: 0px 30px;
+    	margin-bottom: -20px;
 	}
 
 
@@ -320,8 +322,9 @@ const API_SETTINGS_HTML =
 	    <a href='#'>Home</a></div>
 	  <div class = 'apiSettingsOption'>
 	    <select id = 'apiSettingsOption' >
-	      <option value="filter">Filter Table</option>
+	      <option value="filter">API Filter</option>
 	      <option value="swagger">Swagger Data</option>
+	      <option value="paramFilter">Param Filter</option>
 	    </select>
 	  </div> 
 	    </div>
@@ -358,6 +361,14 @@ const API_SETTINGS_HTML =
 	    <div>
 	    	<input id="uploadSwaggerJson" type=file   accept=".json" name="files[]"/>
 	    	<button id='downloadSwagger'>Download</button>
+	    </div>
+	   </div>
+	   
+	   <div id='apiParamFilterContainer' style='display:none'>
+	    <br>
+	     <label>POST/GET Params (Seperated with comma)</label>
+	    <div>
+	    	<textarea id='apiParamFilterInput' rows='4' cols='50'> </textarea>
 	    </div>
 	   </div>
 	  <button id='saveBtn' class = 'saveBtn'>Save</button>
@@ -665,10 +676,19 @@ const API_POPUP_CSS =
 	  visibility:hidden;
 	}
 	
-	.restapi-dialog-box .editorLabel {
-	    min-width:120px;
+	.restapi-dialog-box .apiEditorLabel {
+	    width:20%;
 	    text-transform: uppercase;
 	    display:inline-block
+	}
+	
+	.restapi-dialog-box .apiEditorInput {
+	    width:60%;
+	}
+	
+	.restapi-dialog-box .dialogButtonContainer button {
+		margin-right: 10px;
+    	padding: 5px 10px;
 	}
 
 	.restapi-dialog-box .editorTA {

@@ -36,13 +36,20 @@
 		
 		function render() {
 			if (currentPage == "filter") {
+				$('#apiParamFilterContainer').hide();
 				$('#apiFilterContainer').show();
 			    $('#swaggerDataContainer').hide();
 				ApiFilter.render();
-			} else {
+			} else if (currentPage == "swagger") {
+				$('#apiParamFilterContainer').hide();
 				$('#apiFilterContainer').hide();
 			    $('#swaggerDataContainer').show();
 				_showSwaggerPage();
+			} else {
+				$('#apiFilterContainer').hide();
+			    $('#swaggerDataContainer').hide();
+			    $('#apiParamFilterContainer').show();
+			    _showParamFilterPage();
 			}
 		}
 		
@@ -53,6 +60,13 @@
 				$(swaggerBtn).show();
 			} else {
 				$(swaggerBtn).hide();
+			}
+		}
+		
+		function _showParamFilterPage() {
+			var paramFilterData = ApiFilter.getApiParamFilterData();
+			if (paramFilterData) {
+				document.getElementById("apiParamFilterInput").value = paramFilterData;
 			}
 		}
 		
@@ -112,7 +126,7 @@
 		function _saveSettings() {
 			if (currentPage == "filter") {
 				ApiFilter.saveFilterData();
-			} else {
+			} else if (currentPage == "swagger"){
 				if (localSwaggerData) {
 					ApiFilter.setSwaggerData(localSwaggerData);
 				}
@@ -120,6 +134,11 @@
 				
 				localSwaggerData = null;
 				_showSwaggerPage();
+			} else {
+				var data = document.getElementById("apiParamFilterInput").value;
+				if (data) {
+					ApiFilter.saveApiParamFilterData(data);
+				}
 			}
 		}
 	}
