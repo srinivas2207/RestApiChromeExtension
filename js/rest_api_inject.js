@@ -196,6 +196,8 @@ const API_PANEL_CSS =
 
 
 	/* editor dialog content */
+	
+	
 
 	.restapi-dialog-box .apiEditorContainer {
 	    width: 97%;
@@ -511,7 +513,7 @@ const API_POPUP_CSS =
 	  border:1px solid #ccc;
 	  -webkit-box-shadow:0 1px 5px rgba(0,0,0,.2);
 	  -mz-box-shadow:0 1px 5px rgba(0,0,0,.2);
-	  box-shadow:0 1px 5px rgba(0,0,0,.2);
+	  box-shadow:0 0px 50px rgba(0,0,0,.4);
 	  position:absolute;
 	  width:200px;
 	  height:100px;
@@ -521,6 +523,7 @@ const API_POPUP_CSS =
 	  color:#666;
 	  visibility:hidden;
 	  opacity:0;
+	  border-radius: 10px;
 	}
 	.restapi-dialog-box .restapi-dialog-title {
 	  margin:0;
@@ -688,7 +691,7 @@ const API_POPUP_CSS =
 	
 	.restapi-dialog-box .dialogButtonContainer button {
 		margin-right: 10px;
-    	padding: 5px 10px;
+    	padding: 2px 10px;
 	}
 
 	.restapi-dialog-box .editorTA {
@@ -1452,10 +1455,10 @@ var REST_EXT = {};
 			dialog.style.opacity = (set == "open") ? 1 : 0;
 			dialog.style.width = defaults.width + 'px';
 			dialog.style.height = defaults.height + 'px';
-			dialog.style.top = (!defaults.top) ? "50%" : '0px';
+			dialog.style.bottom = (!defaults.top) ? "50%" : '0px';
 			dialog.style.left = (!defaults.left) ? "50%" : '0px';
-			dialog.style.marginTop = (!defaults.top) ? '-' + defaults.height/2 + 'px' : defaults.top + 'px';
-			dialog.style.marginLeft = (!defaults.left) ? '-' + defaults.width/2 + 'px' : defaults.left + 'px';
+			dialog.style.marginBottom = '30px';
+			dialog.style.marginLeft = '50px';
 			dialog_title.innerHTML = defaults.title;
 			dialog_content.innerHTML = defaults.content;
 			dialog_overlay.style.display = (set == "open" && defaults.overlay) ? "block" : "none";

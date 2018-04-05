@@ -1,8 +1,8 @@
 {
   "name": "REST API inspector",
-  "version": "0.0.1",
+  "version": "1.0",
   "manifest_version": 2,
-  "description": "This extension is to make REST-API testing more easier.",
+  "description": "This is a supporting tool to create tests using REST API Testing framework.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

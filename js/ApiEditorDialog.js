@@ -87,10 +87,10 @@
 			dialog.style.opacity = (set == "open") ? 1 : 0;
 			dialog.style.width = defaults.width + 'px';
 			dialog.style.height = defaults.height + 'px';
-			dialog.style.top = (!defaults.top) ? "50%" : '0px';
+			dialog.style.bottom = (!defaults.top) ? "50%" : '0px';
 			dialog.style.left = (!defaults.left) ? "50%" : '0px';
-			dialog.style.marginTop = (!defaults.top) ? '-' + defaults.height/2 + 'px' : defaults.top + 'px';
-			dialog.style.marginLeft = (!defaults.left) ? '-' + defaults.width/2 + 'px' : defaults.left + 'px';
+			dialog.style.marginBottom = '30px';
+			dialog.style.marginLeft = '50px';
 			dialog_title.innerHTML = defaults.title;
 			dialog_content.innerHTML = defaults.content;
 			dialog_overlay.style.display = (set == "open" && defaults.overlay) ? "block" : "none";
